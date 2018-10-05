@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Buzzi_PublishNewsletterSubscribe" setup_version="1.0.0">
+        <sequence>
+            <module name="Buzzi_Base"/>
+            <module name="Buzzi_Publish"/>
+            <module name="Magento_Newsletter"/>
+        </sequence>
+    </module>
+</config>
