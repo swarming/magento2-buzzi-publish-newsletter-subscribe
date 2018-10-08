@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Buzzi_Publish:etc/publish_events.xsd">
+    <buzzi>
+        <publish_event code="newsletter_subscribe">
+            <label>Newsletter Subscribe</label>
+            <type>buzzi.ecommerce.newsletter-subscribe</type>
+        </publish_event>
+        <publish_event code="newsletter_unsubscribe">
+            <label>Newsletter Unsubscribe</label>
+            <type>buzzi.ecommerce.newsletter-unsubscribe</type>
+        </publish_event>
+    </buzzi>
+</config>
