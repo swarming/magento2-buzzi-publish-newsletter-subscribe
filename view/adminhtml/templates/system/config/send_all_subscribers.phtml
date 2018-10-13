@@ -1,0 +1,50 @@
+<?php
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+
+/** @var $block \Buzzi\PublishNewsletterSubscribe\Block\Adminhtml\System\Config\SendAllSubscribers */
+?>
+<div class="actions actions-send-all-subscribers">
+    <button onclick="testConnection(); return false;" class="action-send-all-subscribers" type="button" id="<?php echo $block->getHtmlId() ?>">
+        <span><?php echo $block->escapeHtml($block->getButtonLabel()) ?></span>
+    </button>
+
+    <span id="send-all-subscribers-result" class="message-test-connection"></span>
+</div>
+<script>
+    require(['jquery', 'mage/translate'], function ($, $t) {
+        window.testConnection = function () {
+
+            $('body').trigger('processStart');
+
+            var resultMessageBox = $('#send-all-subscribers-result');
+
+            resultMessageBox
+                .removeClass('success')
+                .removeClass('fail')
+                .css('color', '')
+                .text('');
+
+            $.post('<?php echo $block->getAjaxUrl() ?>', {
+                website: '<?php echo $block->getWebsiteCode() ?>',
+                form_key: '<?php echo $this->getFormKey() ?>'
+            }, 'json')
+            .done(function (result) {
+                resultMessageBox
+                    .addClass(result.status)
+                    .css('color', (result.status === 'success' ? 'green' : 'red'))
+                    .text(result.message);
+            })
+            .fail(function () {
+                resultMessageBox
+                    .addClass('fail')
+                    .css('color', 'red')
+                    .text($t('An error occurred while request.'));
+            })
+            .always(function () {
+                $('body').trigger('processStop');
+            });
+        };
+    })
+</script>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Swarming Technology, LLC. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="buzzi_newsletter_subscribe" frontName="buzzi_newsletter_subscribe">
+            <module name="Buzzi_PublishNewsletterSubscribe" before="Magento_Backend" />
+        </route>
+    </router>
+</config>

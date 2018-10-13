@@ -8,7 +8,11 @@
     <system>
         <section id="buzzi_publish_events">
             <group id="newsletter_subscribe">
-                <field id="confirmed_only" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                <field id="send_all_subscribers" translate="button_label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <frontend_model>Buzzi\PublishNewsletterSubscribe\Block\Adminhtml\System\Config\SendAllSubscribers</frontend_model>
+                </field>
+
+                <field id="confirmed_only" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
                     <label>Confirmed Only</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <depends>
