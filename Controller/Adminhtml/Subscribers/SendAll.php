@@ -35,7 +35,7 @@ class SendAll extends Action
     {
         $response = [
             'status' => 'success',
-            'message' => __('All subscribers were were added to queue and will be sent shortly.')
+            'message' => __('All subscribers were added to the queue and will be sent shortly.')
         ];
 
         $websiteCode = $this->getRequest()->getParam('website') ?: null;
