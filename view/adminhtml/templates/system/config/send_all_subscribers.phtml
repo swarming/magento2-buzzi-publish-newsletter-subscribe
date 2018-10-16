@@ -9,8 +9,11 @@
     <button onclick="testConnection(); return false;" class="action-send-all-subscribers" type="button" id="<?php echo $block->getHtmlId() ?>">
         <span><?php echo $block->escapeHtml($block->getButtonLabel()) ?></span>
     </button>
-
-    <span id="send-all-subscribers-result" class="message-test-connection"></span>
+    <div>
+        <span id="send-all-subscribers-result" class="message-test-connection"></span>
+    </div>
+    <p class="note"><span><?= __('Clicking "Send All Subscribers" will send all current Newsletter Subscribers to Buzzi.') ?></span></p>
+    <p class="note"><span><?= __('This is typically done a single time to upload all Newsletter Subscribers that existed before the Buzzi extension was installed and enabled.') ?></span></p>
 </div>
 <script>
     require(['jquery', 'mage/translate'], function ($, $t) {
