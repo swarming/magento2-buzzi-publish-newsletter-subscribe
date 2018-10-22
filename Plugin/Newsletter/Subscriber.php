@@ -68,6 +68,53 @@ class Subscriber
 
     /**
      * @param \Magento\Newsletter\Model\Subscriber $subject
+     * @param string $result
+     * @return string
+     */
+    public function afterSubscribeCustomerById(NewsletterSubscriber $subject, $result)
+    {
+        $storeId = $subject->getStoreId();
+
+        if ($subject->getCustomerId()
+            && $subject->isStatusChanged()
+            && $this->configEvents->isEventEnabled(DataBuilder::EVENT_TYPE_SUBSCRIBE, $storeId)
+            && $this->isSubscribeEventAllowed($subject->getStatus(), $storeId)
+        ) {
+            $this->sendSubscribeEvent($subject, $storeId);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param \Magento\Newsletter\Model\Subscriber $subject
+     * @param string $result
+     * @return string
+     */
+    public function afterUpdateSubscription(NewsletterSubscriber $subject, $result)
+    {
+        $storeId = $subject->getStoreId();
+
+        if ($subject->getCustomerId()
+            && $subject->isStatusChanged()
+            && $subject->isSubscribed()
+            && $this->configEvents->isEventEnabled(DataBuilder::EVENT_TYPE_SUBSCRIBE, $storeId)
+            && $this->isSubscribeEventAllowed($subject->getStatus(), $storeId)
+        ) {
+            $this->sendSubscribeEvent($subject, $storeId);
+        } elseif ($subject->getCustomerId()
+            && $subject->isStatusChanged()
+            && !$subject->isSubscribed()
+            && $this->configEvents->isEventEnabled(DataBuilder::EVENT_TYPE_UNSUBSCRIBE, $storeId)
+        ) {
+            $this->sendUnsubscribeEvent($subject, $storeId);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param \Magento\Newsletter\Model\Subscriber $subject
      * @param bool $result
      * @return bool
      */
@@ -120,6 +167,24 @@ class Subscriber
         $storeId = $subject->getStoreId();
 
         if ($this->configEvents->isEventEnabled(DataBuilder::EVENT_TYPE_UNSUBSCRIBE, $storeId)) {
+            $this->sendUnsubscribeEvent($subject, $storeId);
+        }
+        return $result;
+    }
+
+    /**
+     * @param \Magento\Newsletter\Model\Subscriber $subject
+     * @param string $result
+     * @return string
+     */
+    public function afterUnsubscribeCustomerById(NewsletterSubscriber $subject, $result)
+    {
+        $storeId = $subject->getStoreId();
+
+        if ($subject->getCustomerId()
+            && $subject->isStatusChanged()
+            && $this->configEvents->isEventEnabled(DataBuilder::EVENT_TYPE_UNSUBSCRIBE, $storeId)
+        ) {
             $this->sendUnsubscribeEvent($subject, $storeId);
         }
         return $result;
